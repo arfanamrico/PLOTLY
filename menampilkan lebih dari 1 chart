@@ -1,0 +1,121 @@
+import plotly.express as px
+import plotly.graph_objects as go
+import pandas as pd
+from datetime import datetime, date, timedelta
+
+tgl = '10/6/2022'
+cellname1 = '04PBR0037_MUTIARA_PURWODADI_PL_L18_11'
+cellname2 = '04PBR0037_MUTIARA_PURWODADI_PL_L18_12'
+cellname3 = '04PBR0037_MUTIARA_PURWODADI_PL_L18_13'
+
+kpi1 = 'MC_H3I_Cell Availability'
+kpi2 = 'MC_H3I_DL PRB Utilization'
+kpi3 = 'MC_H3I_DL Cell Throughput'
+kpi4 = 'MC_H3I_CQI'
+
+path = r"D:\HeidiSQL\Meas\RawIOH.csv"
+df = pd.read_csv(path)
+df['datetime'] = pd.to_datetime(df['DATE'] + " " + df['TIME'])
+df['datetime'] = pd.to_datetime(df['datetime'], format='%m/%d/%Y')
+
+sec1 = pd.DataFrame(df[df['CellName'] == cellname1])
+sec2 = pd.DataFrame(df[df['CellName'] == cellname2])
+sec3 = pd.DataFrame(df[df['CellName'] == cellname3])
+sec1date = pd.DataFrame(sec1[sec1['DATE'] >= tgl])
+sec2date = pd.DataFrame(sec2[sec2['DATE'] >= tgl])
+sec3date = pd.DataFrame(sec3[sec3['DATE'] >= tgl])
+#============KPI 1======================
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=sec1date['datetime'], y=sec1date[kpi1],
+                    mode='lines',
+                    name=cellname1))
+fig.add_trace(go.Scatter(x=sec2date['datetime'], y=sec2date[kpi1],
+                    mode='lines',
+                    name=cellname2))
+fig.add_trace(go.Scatter(x=sec3date['datetime'], y=sec3date[kpi1],
+                    mode='lines',
+                    name=cellname3))
+fig.update_layout(
+    title=kpi1,
+    xaxis_title="datetime",
+    #yaxis_title=kpi,
+    legend_title="Cell Name",
+    font=dict(
+        family="Courier New, monospace",
+        size=12,
+        color="RebeccaPurple"
+    ))
+fig.update_xaxes(rangeslider_visible=True)
+fig.show()
+#============KPI 2======================
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=sec1date['datetime'], y=sec1date[kpi2],
+                    mode='lines',
+                    name=cellname1))
+fig.add_trace(go.Scatter(x=sec2date['datetime'], y=sec2date[kpi2],
+                    mode='lines',
+                    name=cellname2))
+fig.add_trace(go.Scatter(x=sec3date['datetime'], y=sec3date[kpi2],
+                    mode='lines',
+                    name=cellname3))
+
+fig.update_layout(
+    title=kpi2,
+    xaxis_title="datetime",
+    #yaxis_title=kpi2,
+    legend_title="Cell Name",
+    font=dict(
+        family="Courier New, monospace",
+        size=12,
+        color="RebeccaPurple"
+    ))
+fig.update_xaxes(rangeslider_visible=True)
+fig.show()
+#============KPI 3======================
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=sec1date['datetime'], y=sec1date[kpi3],
+                    mode='lines',
+                    name=cellname1))
+fig.add_trace(go.Scatter(x=sec2date['datetime'], y=sec2date[kpi3],
+                    mode='lines',
+                    name=cellname2))
+fig.add_trace(go.Scatter(x=sec3date['datetime'], y=sec3date[kpi3],
+                    mode='lines',
+                    name=cellname3))
+
+fig.update_layout(
+    title=kpi3,
+    xaxis_title="datetime",
+    #yaxis_title=kpi2,
+    legend_title="Cell Name",
+    font=dict(
+        family="Courier New, monospace",
+        size=12,
+        color="RebeccaPurple"
+    ))
+fig.update_xaxes(rangeslider_visible=True)
+fig.show()
+#============KPI 4======================
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=sec1date['datetime'], y=sec1date[kpi4],
+                    mode='lines',
+                    name=cellname1))
+fig.add_trace(go.Scatter(x=sec2date['datetime'], y=sec2date[kpi4],
+                    mode='lines',
+                    name=cellname2))
+fig.add_trace(go.Scatter(x=sec3date['datetime'], y=sec3date[kpi4],
+                    mode='lines',
+                    name=cellname3))
+
+fig.update_layout(
+    title=kpi4,
+    xaxis_title="datetime",
+    #yaxis_title=kpi2,
+    legend_title="Cell Name",
+    font=dict(
+        family="Courier New, monospace",
+        size=12,
+        color="RebeccaPurple"
+    ))
+fig.update_xaxes(rangeslider_visible=True)
+fig.show()
