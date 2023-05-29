@@ -1,0 +1,36 @@
+# import pandas as pd
+# df = pd.read_csv(r"E:\NPM\KPI\data update\RawIOH NewTamplate 20230508.csv")
+# namafile = 'kpi_availability.html'
+# savefile = r'E:\test\plotly'
+# df = pd.DataFrame(df)
+# ds = df[df['Site ID']=='04PBR0036']
+# namecell = []
+# for c in ds['CellName']:
+#     if c in namecell: pass
+#     else: namecell.append(c)
+
+
+#===========plotly.express as px=======
+# import plotly.express as px
+# fig = px.line(ds, x=ds['TIME'], y=ds['MC_H3I_DL PRB Utilization'], color=ds['CellName'])
+# fig.write_html(f'{savefile}/{namafile}', auto_open=True)
+
+#=========plotly.graph_objects as go option 1========
+# import plotly.graph_objects as go
+# from plotly.subplots import make_subplots
+# fig = make_subplots(rows=2, cols=1)    
+# fig.add_trace(go.Line(x=ds['TIME'], y=ds['MC_H3I_DL PRB Utilization']),row=1, col=1)
+# fig.add_trace(go.Line(x=ds['TIME'], y=ds['Avg_TA_meter']),row=2, col=1)
+# fig.write_html(f'{savefile}/{namafile}', auto_open=True)
+
+#======plotly.graph_objects as go option 1========
+# import plotly.graph_objects as go
+# fig = go.Figure()
+# for cell in namecell:
+#     data = ds[ds['CellName']==cell]
+#     fig.add_trace(go.scatter(x=data['TIME'], y=data['MC_H3I_DL PRB Utilization'], name = cell))
+# fig.show()
+
+
+
+
